@@ -1,3 +1,4 @@
+import { Color } from "p5";
 
 export class Ball {
   private x: number;
@@ -10,7 +11,14 @@ export class Ball {
   private borderColor: string = "black";
 
   /* TODO REQUIRED - add accessors and mutators for x, y, size, color, and borderColor */
-  constructor(x: number, y: number, size: number) {
+  constructor(x: number, y: number, size: number, color = "red", borderColor = "black") {
+    this.x = x
+    this.y = y
+    this.size = random(40, 100)
+    this.xSpeed = random(-2, 2)
+    this.ySpeed = random(-2, 2)
+    this.color = color
+    this.borderColor = borderColor
     /* TODO REQUIRED = Build your constructor */
     /* TODO OPTIONAL - add optional parameters to set color and borderColor on creation of the object */
   }
@@ -29,12 +37,17 @@ export class Ball {
     ellipse(this.x, this.y, this.size);
   }
 
+
+
   public move(): void {
     if (this.stopped == false) {
       this.x = this.xSpeed + this.x;
       this.y = this.ySpeed + this.y;
       this.doBorderBehavior();
     }
+  }
+  public isStopped() {
+    return this.stopped;
   }
 
   public distFromMouse(): number {
