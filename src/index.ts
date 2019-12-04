@@ -30,33 +30,72 @@ import { Snowflake } from "./modules/snowflakes.js";
 let balls: Ball[] = [];
 let snowflakes: Snowflake[] = [];
 let bubbles: Bubble[] = [];
-let clickedIndex = -1;
+
 
 function setup() {
-    let numBubbles = 10;
-    let numBalls = 10;
-    let numFlakes = 10;
-    createCanvas(500, 500);
-    for (/* TODO REQUIRED - fill this in*/) {
-        balls[i] = new Ball(random(25, width - 25), random(25, height - 25), random(10, 50));
+    let numBubbles = 15;
+    let numBalls = 12;
+    let numFlakes = 40;
+    createCanvas(1665, 950);
+    for (let i = 0; i < numBalls; i++) {
+        balls[i] = new Ball(random(25, width - 25), random(25, height - 25), random(10, 50), randomColor());
         /* TODO OPTIONAL - make the balls a random color */
     }
-    for (/* TODO REQUIRED  - fill this in*/) {
+    for (let i = 0; i < numBubbles; i++) {
         /* TODO REQUIRED - add the bubbles */
+        bubbles[i] = new Bubble(random(25, width - 25), random(25, height - 25), random(10, 50), transparent());
     }
-    for (/* TODO REQUIRED */) {
-        /* TODO REQUIRED - add the snowflakes */
+    for (let i = 0; i < numFlakes; i++) {
+        snowflakes[i] = new Snowflake(random(25, width - 25), random(25, height - 25), random(10, 12));
     }
 }
 
 function draw() {
-    background("skyblue");
-    for (/* TODO REQUIRED*/) {
+    background("DarkSlateBlue");
+    for (let i = 0; i < balls.length; i++) {
         balls[i].draw();
         balls[i].move();
     }
+    for (let i = 0; i < bubbles.length; i++) {
+        bubbles[i].draw();
+        bubbles[i].move();
+    }
+
+    for (let i = 0; i < snowflakes.length; i++) {
+        snowflakes[i].draw();
+        snowflakes[i].move();
+    }
+
     /* TODO REQUIRED - Draw and move the bubbles and flakes */
 }
+
+function mousePressed() {
+        for (let b of balls) {
+            if (b.touchingMouse()) {
+                if (b.isStopped()) {
+                    b.go();
+                } else {
+                    b.stop();
+                }
+            }
+        }
+}
+
+
+function transparent(): string {
+    return "#ffffff80";
+
+}
+
+function randomColor(): string {
+    return "rgb(" +
+        Math.floor(random(0, 255)) + "," + " " +
+        Math.floor(random(0, 255)) + "," + " " +
+        Math.floor(random(0, 255)) + ")";
+}
+
+
+
 
 /* TODO OPTIONAL - add a function mousePressed() that either stops or starts objects from moving
    if the mouse is pressed while it is touching them. So you could use this (if careful!) to stop all of the
